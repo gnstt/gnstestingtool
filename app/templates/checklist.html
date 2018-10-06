@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block checklist %}
+
+
+<h2><i class="fa fa-check"></i> Checklist: {{checklist.name}}</h2>
+
+<hr>
+<table class="small table table-sm table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th class="nowrap" scope="col">name of checlist</th>
+      <!--<th class="nowrap" scope="col">project</th>-->
+      <th class="nowrap" scope="col">date start</th>  
+      <th scope="col">action</th>
+      <th class="nowrap" scope="col">pass/fail</th>
+      <th scope="col">note</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{#   touched     #}
+
+{% if checklist.touched %}
+
+	{%for a in actions%}
+    {% if a.status %}
+      <tr>
+      <th scope="row"  class="bg-success">{{a.pk}}</th>
+      <td class="nowrap">{{a.project.name}}</td>
+      <!--<td class="nowrap">{{a.project.name}}</td>-->
+      <td class="nowrap">{{a.date_start.day}}.{{a.date_start.month}}.{{a.date_start.year}} - {{a.date_start.hour}}:{{a.date_start.minute}}</td>
+      <td>{{a.name}}</td>
+      <td class="nowrap">
+          <a href="/toggle_action/{{a.pk}}/{{checklist.pk}}/" class="btn btn-success btn-sm">pass</a>
+          <a href="/toggle_action/{{a.pk}}/{{checklist.pk}}/" class="btn btn-outline-danger btn-sm">fail</a>
+      </td>
+      <td class="bg-light  ">
+
+      <form action="/add_note/" method="POST" class="d-flex flex-row">
+        {% csrf_token %}
+      <input type="hidden" name="checklist_id" value="{{checklist.pk}}">
+      <input type="hidden" name="action_id" value="{{a.pk}}">
+      <textarea class="form-control" name="note" value="{{a.notes}}">{{a.notes}}</textarea>
+      <input type="submit" class="mx-2 btn btn-outline-success" value="OK">
+
+      </form>
+
+    </td>
+    </tr>
+    {% else %}
+      <tr >
+      <th class="bg-danger" scope="row">{{a.pk}}</th>
+      <td class="nowrap">{{a.project.name}}</td>
+      <!--<td class="nowrap">{{a.project.name}}</td>-->
+      <td class="nowrap">{{a.date_start.day}}.{{a.date_start.month}}.{{a.date_start.year}} - {{a.date_start.hour}}:{{a.date_start.minute}}</td>
+      <td>{{a.name}}</td>
+      <td class="nowrap">
+        <a href="/toggle_action/{{a.pk}}/{{checklist.pk}}/" class="btn btn-outline-success btn-sm">pass</a>
+        <a href="/toggle_action/{{a.pk}}/{{checklist.pk}}/" class="btn btn-danger btn-sm">fail</a>
+      </td>
+
+      <td >
+
+
+
+        <form action="/add_note/" method="POST" class="bg-light d-flex flex-row">
+        {% csrf_token %}
+
+        <input type="hidden" name="checklist_id" value="{{checklist.pk}}">
+        <input type="hidden" name="action_id" value="{{a.pk}}">
+        <textarea class="form-control" name="note" value="{{a.notes}}">{{a.notes}}</textarea>
+        <input type="submit" class="mx-2 btn btn-outline-success" value="OK">
+      
+      </form>
+
+      </td>
+
+    </tr>
+    {%endif%}
+    {%endfor%}
+
+    {%endif%}
+
+
+
+
+
+{# not touched #}
+
+
+{% if not checklist.touched %}
+	{%for a in actions%}
+      <tr>
+      <th scope="row">{{a.pk}}</th>
+      <td class="nowrap">{{a.project.name}}</td>
+      <!--<td class="nowrap">{{a.project.name}}</td>-->
+      <td class="nowrap">{{a.date_start.day}}.{{a.date_start.month}}.{{a.date_start.year}} - {{a.date_start.hour}}:{{a.date_start.minute}}</td>
+      <td>{{a.name}}</td>
+      <td class="nowrap">
+      <a href="/toggle_action/{{a.pk}}/{{checklist.pk}}/" class="btn btn-success btn-sm">pass</a>
+      <a href="/toggle_action/{{a.pk}}/{{checklist.pk}}/" class="btn btn-outline-danger btn-sm">fail</a>
+      </td>
+      <td>
+        <form action="/add_note/" method="POST" class="bg-light d-flex flex-row">
+        {% csrf_token %}
+
+        <input type="hidden" name="checklist_id" value="{{checklist.pk}}">
+        <input type="hidden" name="action_id" value="{{a.pk}}">
+        <textarea class="form-control" name="note" value="{{a.notes}}">{{a.notes}}</textarea>
+        <input type="submit" class="mx-2 btn btn-outline-success" value="OK">
+      
+      </form>
+      </td>
+    </tr>
+    {%endfor%}
+
+    {%endif%}
+
+
+  </tbody>
+</table>
+	<button type="button" class="btn btn-primary" onclick="window.print();">Save report</button>
+<style type="text/css">
+	.nowrap {
+        white-space:nowrap;
+    }
+</style>
+
+<a href="/finish_checklist/{{checklist.pk}}" class="btn btn-primary" >Finish checklist</a>
+
+{% endblock %}

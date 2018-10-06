@@ -1,0 +1,6 @@
+{%extends 'base.html'%}
+{%block afterlogout%}
+<h2 class="d-flex align-items-center justify-content-center font-weight-bold">Good luck {{username}} ...</h2>
+
+<script>setTimeout( function () {window.location = '/'},1000 )</script>
+{%endblock%}

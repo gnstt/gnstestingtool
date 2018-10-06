@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block createchecklist %}
+
+
+<h2>
+    <i class="fa fa-list-ol"></i> Create Checklist</h2>
+<hr>
+
+
+	<form action="/createchecklist/" method="POST">
+		{%csrf_token%}
+		<div class="row">
+		
+	<div class="col-md-6">
+	  <div class="form-group">
+	    
+	    <input required type="text" class="form-control-sm form-control project_name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter project name ..." name="project_name">
+	  </div>
+
+	<div class="form-group">
+	    
+	    <input required type="text" class="form-control-sm form-control checklist_name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter checklist name ..." name="checklist_name">
+	  </div>
+		<button type="submit" class="btn btn-sm btn-outline-primary save_checklist"><i class="fas fa-save"></i> Save checklist</button>
+		<button type="button" class="btn btn-sm btn-outline-success add_action"><i class="fas fa-plus-circle"></i> Add action</button>
+		
+	</div>
+
+	<div class="col-md-6 actions_body">
+			<div class="form-group action_group d-flex flex-row mb-3">
+			<textarea class="form-control-sm form-control" placeholder="Enter action ..." id="action" name="action"></textarea>
+			<button type="button" class="ml-3 btn btn-sm btn-outline-danger remove_action"><i class="fas fa-trash-alt"></i></button>
+			</div>
+
+	</div>
+</div>
+	</form>
+
+
+<script>
+	window.onload = function(){
+
+		var checklist_name = $('.checklist_name')
+		var project_name   = $('.project_name')
+		var save_checklist = $('.save_checklist')
+		var actions_body = $('.actions_body')
+		var action_group = $('.action_group')		
+		var add_action   = $('.add_action')
+		var remove_action= $('.remove_action')
+
+
+		// init remove action
+		action_group.find('button.remove_action').click(function(e){
+
+			if ( $('.action_group').length != 1 ){
+				$(e.target).parent().remove()
+			}
+		})
+
+		add_action.click( function(e){
+			e.preventDefault()
+			var clone = action_group.clone()
+			clone.find('textarea').val('')
+			// clone remove action
+			clone.find('button').click(function(e){
+				if ( $('.action_group').length != 1 ){
+					$(e.target).parent().remove()	
+				}
+				
+			})
+			actions_body.append(clone)
+		})
+
+
+		save_checklist.click( function(e){
+
+			// var items = []
+			// $('.action_group').each(function(index){
+			// 	items.push(
+			// 		{
+			// 			id:index,
+			// 			text:$(this).find('textarea').val(),
+			// 		}
+			// 		)
+			// })
+
+			// console.log(btoa(items))
+			
+		})
+
+
+
+
+
+	}
+
+
+
+
+</script>
+
+{% endblock %}

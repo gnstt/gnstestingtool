@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <title>GNS Testing tool</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><img id="myImg" class="mr-2" width="30px" src="/static/img/gns_logo.svg" alt=""><span class="font-weight-bold">GNS Testing tool</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+          {% if not request.user.is_authenticated %}
+
+          <!-- IF ! USER -->
+
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">About app</a>
+          </li>
+          {%else%}
+
+          <!-- IF USER -->
+
+          <li class="nav-item"><a class="nav-link" href="/home/">Home <span class="sr-only">(current)</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="/about/">About app</a></li>
+          <li class="nav-item"><a class="nav-link" href="/createchecklist/">Create checklist</a></li>
+          <li class="nav-item"><a class="nav-link" href="/listofcases/">List of cases</a></li>
+          {% endif %}
+
+
+        </ul>
+
+        
+        {% if not request.user.is_authenticated %}
+
+        <!-- IF ! USER -->
+        
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="/register/">Register</a></li>
+        </ul>
+
+        {% else %}
+
+        <!-- IF USER -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link text-warning  font-weight-bold" href="/"><i class="fas fa-user"></i> {{user.get_username}}</a></li>
+          <li class="nav-item"><a class="nav-link" href="/logout/">logout</a><li>
+        </ul>
+
+        {% endif %}
+
+
+      </div>
+    </nav>
+  
+
+    <div class="container-fluid my-5">
+    
+    
+    {%block home%}{%endblock%}
+    {%block about%}{%endblock%}
+
+    {% if not request.user.is_authenticated %}
+
+    {%block login%}{%endblock%}
+    {%block register%}{%endblock%}
+    {%block afterlogout%}{%endblock%}
+
+    {% else %}
+
+    {%block listofcases%}{%endblock%}
+    {%block createchecklist%}{%endblock%}
+    {%block checklist%}{%endblock%}
+
+    {% endif %}
+    
+    {%block error%}{%endblock%}
+
+    </div>
+
+
+
+    <style>
+  *{
+    /*border-radius: 0 !important;*/
+    transition: transform .2s ease;
+  }
+  .navbar-brand:hover{
+    transform: scale(0.95);
+  }
+
+#myImg {
+    -webkit-animation: rotation 5s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to   {-webkit-transform: rotate(359deg);}
+}
+</style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+  </body>
+</html>
