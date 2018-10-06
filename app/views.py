@@ -7,9 +7,9 @@ from django.contrib.auth.models import Permission
 from app.models import *
 from django.core.paginator import Paginator
 
-import requests
-from bs4 import BeautifulSoup
-import re
+#import requests
+#from bs4 import BeautifulSoup
+#import re
 
 
 user_permissions = [
