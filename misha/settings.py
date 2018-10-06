@@ -14,7 +14,7 @@ SECRET_KEY = '5a=ftt_bpj@rleslczg)xv1$(l44azn7!7*z(q&w4e%3jg=^2@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gnstt.pythonanywhere.com']
 
 
 # Application definition
