@@ -110,11 +110,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/home/gnstt/gnstestingtool/app/static'
 
-#STATICFILES_DIRS = (
-#                os.path.join(PROJECT_DIR,'staticfiles'), # if your static files folder is named "staticfiles"
-#)
-
-
+#STATIC_ROOT = '/TT/app/static'
 
 
 
