@@ -8,13 +8,13 @@
 <table class="small table table-sm table-bordered">
   <thead>
     <tr>
-      <th scope="col">id</th>
-      <th class="nowrap" scope="col">name of checlist</th>
+      <th scope="col" width="60">id</th>
+      <th class="nowrap" scope="col" width="100">name of checlist</th>
       <!--<th class="nowrap" scope="col">project</th>-->
-      <th class="nowrap" scope="col">date start</th>  
-      <th scope="col">action</th>
-      <th class="nowrap" scope="col">pass/fail</th>
-      <th scope="col">note</th>
+      <th class="nowrap" scope="col" width="77">date start</th>  
+      <th scope="col" width="280">action</th>
+      <th class="nowrap" scope="col" width="72">pass/fail</th>
+      <th scope="col" width="520">note</th>
     </tr>
   </thead>
   <tbody>
@@ -64,7 +64,7 @@
 
 
 
-        <form action="/add_note/" method="POST" class="bg-light d-flex flex-row">
+        <form action="/add_note/" method="POST" class="bg-light d-flex flex-row" >
         {% csrf_token %}
 
         <input type="hidden" name="checklist_id" value="{{checklist.pk}}">
@@ -102,6 +102,7 @@
       <a href="/toggle_action/{{a.pk}}/{{checklist.pk}}/" class="btn btn-outline-danger btn-sm">fail</a>
       </td>
       <td>
+	  
         <form action="/add_note/" method="POST" class="bg-light d-flex flex-row">
         {% csrf_token %}
 
@@ -121,11 +122,11 @@
   </tbody>
 </table>
 	<button type="button" class="btn btn-primary" onclick="window.print();">Save report</button>
-<style type="text/css">
+<!--<style type="text/css">
 	.nowrap {
         white-space:nowrap;
     }
-</style>
+</style>-->
 
 <a href="/finish_checklist/{{checklist.pk}}" class="btn btn-primary" >Finish checklist</a>
 
